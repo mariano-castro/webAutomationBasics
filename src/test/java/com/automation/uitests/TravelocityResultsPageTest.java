@@ -19,7 +19,7 @@ public class TravelocityResultsPageTest extends BaseTest{
 
 
 
-    @BeforeMethod(alwaysRun = true)
+    @Test(alwaysRun = true)
     public void loadPage() throws InterruptedException {
         home1 = new TravelocityHomePage(myDriver.getDriver());
         result1 = home1.performFlySearch(goingFromName, goingToName,checkInDate, checkOutDate, adultsNumber);
@@ -36,11 +36,7 @@ public class TravelocityResultsPageTest extends BaseTest{
         result1.searchByProperty(propertyName);
         Assert.assertEquals("a", "a");
     }
-
-    @Test
-    public void searchFlight_Correct(){
-        result1 = home1.performFlySearch(goingFrom, goingTo, adults, childs);
-    }
     */
+
 
 }
