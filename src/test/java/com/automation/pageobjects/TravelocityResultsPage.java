@@ -14,7 +14,7 @@ import java.util.List;
 public class TravelocityResultsPage extends BasePage {
     public TravelocityResultsPage(WebDriver driver){
         super(driver);
-        driver.get("https://www.orbitz.com/");
+        driver.get("https://www.travelocity.com/");
     }
 
     // selecciona el boton select del primer resultado
@@ -39,8 +39,6 @@ public class TravelocityResultsPage extends BasePage {
     public By modalBy = new By.ByCssSelector("");
 
     public TravelocityResultsPage searchByProperty(String hotelName){
-        //Assert.assertTrue(driver.getCurrentUrl().contains("Search"), "Not in a search page");
-        //modalCloseButton.click();
         hotelNameSearch.click();
         hotelNameSearch.sendKeys(hotelName);
         hotelNameButton.click();
