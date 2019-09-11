@@ -30,36 +30,36 @@ public class TravelocityHomePage extends BasePage {
     @FindBy(id = "flight-destination-hp-flight")
     public WebElement flyTo;
 
-    @FindBy(css = "#flight-departing-hp-flight")
+    @FindBy(id = "flight-departing-hp-flight")
     public WebElement flyDeparture;
 
-    @FindBy(css = "#flight-returning-hp-flight")
+    @FindBy(id = "flight-returning-hp-flight")
     public WebElement flyReturn;
 
-    @FindBy(css = "#flight-adults-hp-flight")
+    @FindBy(id = "flight-adults-hp-flight")
     public WebElement flyAdults;
 
-    @FindBy(css = "#flight-children-hp-flight")
+    @FindBy(id = "flight-children-hp-flight")
     public WebElement flyChildren;
 
     // Hotels
 
-    @FindBy(css = "#hotel-destination-hp-hotel")
+    @FindBy(id = "hotel-destination-hp-hotel")
     public WebElement goingToInputField;
 
-    @FindBy(css = "#hotel-checkin-hp-hotel")
+    @FindBy(id = "hotel-checkin-hp-hotel")
     public WebElement checkInField;
 
-    @FindBy(css = "#hotel-checkout-hp-hotel")
+    @FindBy(id = "hotel-checkout-hp-hotel")
     public WebElement checkOutField;
 
-    @FindBy(css = "#hotel-1-adults-hp-hotel")
+    @FindBy(id = "hotel-1-adults-hp-hotel")
     public WebElement adultsField;
 
-    @FindBy(css = "#hotel-1-children-hp-hotel")
+    @FindBy(id = "hotel-1-children-hp-hotel")
     public WebElement childrenField;
 
-    @FindBy(css = "#hotel-1-age-select-1-hp-hotel")
+    @FindBy(id = "hotel-1-age-select-1-hp-hotel")
     public WebElement ageFirstChildField;
 
     @FindBy(css = ".on .btn-primary.btn-action.gcw-submit")
