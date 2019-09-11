@@ -66,7 +66,7 @@ public class TravelocityHomePage extends BasePage {
 
     public TravelocityResultsPage performFlySearch(String goingFromName, String goingToName, String checkInDate, String checkOutDate, int adultsNumber) throws InterruptedException {
 
-        flyButton.click();
+        flightsButton.click();
         flyFrom.click();
         flyFrom.sendKeys(goingFromName);
         flyTo.click();
