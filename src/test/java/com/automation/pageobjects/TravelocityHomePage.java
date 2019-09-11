@@ -16,18 +16,18 @@ public class TravelocityHomePage extends BasePage {
         driver.get("https://www.travelocity.com/");
     }
 
-    @FindBy(css = "#tab-hotel-tab-hp")
-    public WebElement hotelButton;
+    @FindBy(id = "tab-hotel-tab-hp")
+    public WebElement hotelsButton;
 
-    @FindBy(css = "#tab-flight-tab-hp")
-    public WebElement flyButton;
+    @FindBy(id = "tab-flight-tab-hp")
+    public WebElement flightsButton;
 
     //  Vuelos
 
-    @FindBy(css = "#flight-origin-hp-flight")
+    @FindBy(id = "flight-origin-hp-flight")
     public WebElement flyFrom;
 
-    @FindBy(css = "#flight-destination-hp-flight")
+    @FindBy(id = "flight-destination-hp-flight")
     public WebElement flyTo;
 
     @FindBy(css = "#flight-departing-hp-flight")
