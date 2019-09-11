@@ -22,8 +22,6 @@ public class TravelocityHomePage extends BasePage {
     @FindBy(id = "tab-flight-tab-hp")
     public WebElement flightsButton;
 
-    //  Vuelos
-
     @FindBy(id = "flight-origin-hp-flight")
     public WebElement flyFrom;
 
@@ -31,10 +29,10 @@ public class TravelocityHomePage extends BasePage {
     public WebElement flyTo;
 
     @FindBy(id = "flight-departing-hp-flight")
-    public WebElement flyDeparture;
+    public WebElement flyDepartureDate;
 
     @FindBy(id = "flight-returning-hp-flight")
-    public WebElement flyReturn;
+    public WebElement flyReturnDate;
 
     @FindBy(id = "flight-adults-hp-flight")
     public WebElement flyAdults;
@@ -65,114 +63,36 @@ public class TravelocityHomePage extends BasePage {
     @FindBy(css = ".on .btn-primary.btn-action.gcw-submit")
     public WebElement searchButton;
 
-    // chanchada
 
-    @FindBy(css = "#inpHotelNameMirror")
-    public WebElement hotelNameSearch;
-
-    @FindBy(css = "#hotelNameGoBtn")
-    public WebElement hotelNameButton;
-
-    @FindBy(css = "#modalCloseButton")
-    public WebElement modalCloseButton;
-
-    @FindBy(css = "#resultsContainer article")
-    public List<WebElement> flexList;
-
-    // selecciona el boton select del primer resultado
-    @FindBy(css = ".bColumn ul li:first-child .t-select-btn")
-    public WebElement botonSelectDeparture;
-
-    @FindBy(css = "#forcedChoiceNoThanks")
-    public WebElement linkNoThanks;
-
-
-
-    public travelocityResultsPage performSearch(String goingToName, String checkInDate, String checkOutDate, int adultsNumber, int childrenNumber, int ageFirstChild ) throws InterruptedException {
-
-        hotelButton.click();
-        goingToInputField.click();
-        goingToInputField.sendKeys(goingToName);
-        checkInField.click();
-        checkInField.sendKeys(checkInDate);
-        checkOutField.click();
-        checkOutField.sendKeys(checkOutDate);
-        new Select(adultsField).selectByValue(String.valueOf(adultsNumber));
-        new Select(childrenField).selectByValue(String.valueOf(childrenNumber));
-        getWait().until(ExpectedConditions.elementToBeClickable(ageFirstChildField));
-        new Select(ageFirstChildField).selectByValue(String.valueOf(ageFirstChild));
-        searchButton.click();
-        try
-        {
-            Thread.sleep(10000);
-        }
-        catch(InterruptedException e) {
-            // this part is executed when an exception (in this example InterruptedException) occurs
-        }
-
-        hotelNameSearch.click();
-        hotelNameSearch.sendKeys("Faena Hotel Miami Beach");
-        hotelNameButton.click();
-
-        try
-        {
-            Thread.sleep(10000);
-        }
-        catch(InterruptedException e) {
-            // this part is executed when an exception (in this example InterruptedException) occurs
-        }
-
-
-        return new travelocityResultsPage(getDriver());
-    }
-
-    public travelocityResultsPage performFlySearch(String from, String to, int flyingAdults, int flyingChildren ){
+    public TravelocityResultsPage performFlySearch(String goingFromName, String goingToName, String checkInDate, String checkOutDate, int adultsNumber) throws InterruptedException {
 
         flyButton.click();
         flyFrom.click();
-        flyFrom.sendKeys(from);
+        flyFrom.sendKeys(goingFromName);
         flyTo.click();
-        flyTo.sendKeys(to);
-        /*flyDeparture.click();
-        flyDeparture.sendKeys(departureDate);
-        flyReturn.click();
-        flyReturn.sendKeys(returnDate);*/
-        new Select(flyAdults).selectByValue(String.valueOf(flyingAdults));
-        new Select(flyChildren).selectByValue(String.valueOf(flyingChildren));
+        flyTo.sendKeys(goingToName);
+        flyDepartureDate.click();
+        flyDepartureDate.sendKeys(checkInDate);
+        flyReturnDate.click();
+        flyReturnDate.sendKeys(checkOutDate);
         searchButton.click();
-
         try
         {
-            Thread.sleep(4000);
+            Thread.sleep(10000);
         }
         catch(InterruptedException e) {
             // this part is executed when an exception (in this example InterruptedException) occurs
         }
 
-        botonSelectDeparture.click();
-
         try
         {
-            Thread.sleep(3000);
+            Thread.sleep(10000);
         }
         catch(InterruptedException e) {
             // this part is executed when an exception (in this example InterruptedException) occurs
         }
 
-        botonSelectDeparture.click();
-
-        try
-        {
-            Thread.sleep(3000);
-        }
-        catch(InterruptedException e) {
-            // this part is executed when an exception (in this example InterruptedException) occurs
-        }
-
-        linkNoThanks.click();
-
-        return new travelocityResultsPage(getDriver());
-
+        return new TravelocityResultsPage(getDriver());
     }
 
 }

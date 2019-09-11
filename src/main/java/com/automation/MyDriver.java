@@ -26,16 +26,6 @@ public class MyDriver {
                 driver = new ChromeDriver();
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--start-maximized");
-                driver = new ChromeDriver(options);
-                /*ChromeOptions options = new ChromeOptions ();
-
-                options.addExtensions (new File('C:\diego.munoz24\Desktop\adblockplus.txt'));
-
-                DesiredCapabilities capabilities = new DesiredCapabilities();
-
-                capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-
-                driver = new ChromeDriver(capabilities);*/
                 break;
             default:
                 break;

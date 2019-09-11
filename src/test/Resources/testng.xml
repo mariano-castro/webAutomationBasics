@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name = "My suite" configfailurepolicy="continue" parallel="tests" verbose="2" preserve-order="false" thread-count="2">
+
+    <parameter name="browser" value="chrome"/>
+
+    <test name ="TravelocityTests" >
+        <classes>
+            <class name = "com.automation.uitests.TravelocityResultsPageTest"/>
+        </classes>
+    </test>
+</suite>
