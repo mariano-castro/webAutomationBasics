@@ -21,6 +21,15 @@ public class TravelocityHomePage extends BasePage {
         driver.get("https://www.travelocity.com/");
     }
 
+    private static final String DD_MM_YYYY = "MM/dd/yyyy";
+    private static final String STORE_NAME_XPATH = "//li[@class='%s rc-tree-treenode-switcher-close']//span[@class='rc-tree-checkbox']";
+    private static final String DATE_FROM = "#flight-departing-hp-flight";
+    private static final String DATE_TO = "#flight-returning-hp-flight";
+    private static final String DATE_CSS_SELECTOR = ".datepicker-cal-date";
+    private static final String MIDDLE_LINK_CSS_SELECTOR = "%s .rdtSwitch";
+    private static final String DAY_CSS_SELECTOR = "%s .rdtDay:not(.rdtNew):not(.rdtOld)[data-value=\"%s\"]";
+
+
     @FindBy(id = "tab-hotel-tab-hp")
     public WebElement hotelsButton;
 
@@ -44,6 +53,9 @@ public class TravelocityHomePage extends BasePage {
 
     @FindBy(id = "flight-children-hp-flight")
     public WebElement flyChildren;
+
+    @FindBy(css = "datepicker-cal-date")
+    public WebElement dayButton;
 
     //Flight+Hotel
     @FindBy(id = "tab-package-tab-hp")
@@ -91,26 +103,21 @@ public class TravelocityHomePage extends BasePage {
     public WebElement searchButton;
 
 
-    public TravelocityResultsPage performFlySearch(String goingFromName, String goingToName, String checkInDate, String checkOutDate, int adultsNumber) throws InterruptedException {
+    public TravelocityResultsPage performFlySearch(String goingFromName, String goingToName, String checkInDate, String checkOutDate, int adultsNumber) throws ParseException {
 
         flightsButton.click();
         flyFrom.click();
         flyFrom.sendKeys(goingFromName);
         flyTo.click();
         flyTo.sendKeys(goingToName);
-        flyDepartureDate.click();
+        /*flyDepartureDate.click();
         flyDepartureDate.sendKeys(checkInDate);
         flyReturnDate.click();
-        flyReturnDate.sendKeys(checkOutDate);
+        flyReturnDate.sendKeys(checkOutDate);*/
+        datePicker(checkInDate, DATE_FROM);
+        datePicker(checkOutDate, DATE_TO);
+        new Select(flyAdults).selectByValue(String.valueOf(adultsNumber));
         searchButton.click();
-        try
-        {
-            Thread.sleep(10000);
-        }
-        catch(InterruptedException e) {
-            // this part is executed when an exception (in this example InterruptedException) occurs
-        }
-
         try
         {
             Thread.sleep(10000);

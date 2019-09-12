@@ -5,6 +5,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.text.ParseException;
+
 public class TravelocityResultsPageTest extends BaseTest{
 
     String goingFromName = "LAS";
@@ -20,7 +22,7 @@ public class TravelocityResultsPageTest extends BaseTest{
 
 
     @Test(alwaysRun = true)
-    public void loadPage() throws InterruptedException {
+    public void loadPage() throws ParseException {
         home1 = new TravelocityHomePage(myDriver.getDriver());
         result1 = home1.performFlySearch(goingFromName, goingToName,checkInDate, checkOutDate, adultsNumber);
     }
