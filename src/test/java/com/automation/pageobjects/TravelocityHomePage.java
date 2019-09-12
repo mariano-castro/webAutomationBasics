@@ -54,11 +54,30 @@ public class TravelocityHomePage extends BasePage {
     @FindBy(id = "flight-children-hp-flight")
     public WebElement flyChildren;
 
-    @FindBy(css = "btn-secondary next")
-    public WebElement nextMonthButton;
-
     @FindBy(css = "datepicker-cal-date")
     public WebElement dayButton;
+
+    //Flight+Hotel
+    @FindBy(id = "tab-package-tab-hp")
+    public WebElement packagesButton;
+
+    @FindBy(id = "fh-fh-hp-package")
+    public WebElement flightandhotelButton;
+
+    @FindBy(id = "package-origin-hp-package")
+    public WebElement packageFlyFrom;
+
+    @FindBy(id = "package-destination-hp-package")
+    public WebElement packageFlyTo;
+
+    @FindBy(id = "package-departing-hp-package")
+    public WebElement packageFlyDepartureDate;
+
+    @FindBy(id = "package-returning-hp-package")
+    public WebElement packageFlyReturnDate;
+
+    @FindBy(css = "btn-secondary next")
+    public WebElement nextMonthButton;
 
     // Hotels
 
