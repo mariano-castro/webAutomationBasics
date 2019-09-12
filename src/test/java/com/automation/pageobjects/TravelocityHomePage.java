@@ -1,12 +1,17 @@
 package com.automation.pageobjects;
 
 import com.automation.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class TravelocityHomePage extends BasePage {
@@ -93,6 +98,115 @@ public class TravelocityHomePage extends BasePage {
         }
 
         return new TravelocityResultsPage(getDriver());
+    }
+
+    /**
+     * Given a date select it from the calendar
+     *
+     * @param date - String Date to select
+     * @param dateSelector - String Date selector from the calendar (From or To)
+     * @return
+     * @throws ParseException
+     */
+    public TravelocityHomePage datePicker(String date, String dateSelector) throws ParseException {
+        Calendar calendar = convertStringToCalendar(DD_MM_YYYY, date);
+
+        WebElement selectDate = driver.findElement(By.cssSelector(String.format(DATE_CSS_SELECTOR, dateSelector)));
+        selectDate.click();
+        WebElement middleLink = driver.findElement(By.cssSelector(String.format(MIDDLE_LINK_CSS_SELECTOR, dateSelector)));
+        middleLink.click();
+
+        selectYear(dateSelector, calendar);
+        selectMonth(dateSelector, calendar);
+        selectDay(dateSelector, calendar);
+
+        return this;
+    }
+
+    /**
+     * Select and click a year from the calendar
+     *
+     * @param dateSelector - String Date selector from the calendar (From or To)
+     * @param calendar - Calendar with the given date
+     * @return
+     */
+    private TravelocityHomePage selectYear(String dateSelector, Calendar calendar) {
+        int year = calendar.get(Calendar.YEAR);
+        int yearDiff = year - Calendar.getInstance().get(Calendar.YEAR);
+        if (yearDiff != 0) {
+            WebElement middleLink = driver.findElement(By.cssSelector(String.format(MIDDLE_LINK_CSS_SELECTOR, dateSelector)));
+            middleLink.click();
+
+            WebElement yearSelector = driver.findElement(By.cssSelector(String.format(YEAR_CSS_SELECTOR, dateSelector, year)));
+            yearSelector.click();
+        }
+        return this;
+    }
+
+    /**
+     * Select and click a month from the calendar
+     *
+     * @param dateSelector - String Date selector from the calendar (From or To)
+     * @param calendar - Calendar with the given date
+     * @return {@link com.hme.cloud.automation.pages.ReportsPage}
+     */
+    private TravelocityHomePage selectMonth(String dateSelector, Calendar calendar) {
+        int month = calendar.get(Calendar.MONTH);
+        List<WebElement> listAllMonthToBook = driver
+                .findElements(By.cssSelector(String.format(MONTH_CSS_SELECTOR, dateSelector)));
+        listAllMonthToBook.get(month).click();
+        wait.until(ExpectedConditions
+                .visibilityOfElementLocated(By.cssSelector(String.format(MIDDLE_LINK_CSS_SELECTOR, dateSelector))));
+        return this;
+    }
+
+    /**
+     * Select and click a day from the calendar
+     *
+     * @param dateSelector - String Date selector from the calendar (From or To)
+     * @param calendar - Calendar with the given date
+     * @return {@link com.hme.cloud.automation.pages.ReportsPage}
+     */
+    private TravelocityHomePage selectDay(String dateSelector, Calendar calendar) {
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        WebElement dayElement = driver.findElement(By.cssSelector(String.format(DAY_CSS_SELECTOR, dateSelector, day)));
+        dayElement.click();
+        return this;
+    }
+
+    /**
+     * Utility to get the actual date time
+     *
+     * @return String - Date & Time in YYMMDDHHMM format
+     */
+    public static String getDateTime() {
+        String actualDateTime;
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int year = calendar.get(Calendar.YEAR);
+        year = year % 100;
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutes = calendar.get(Calendar.MINUTE);
+        actualDateTime = Integer.toString(year) + String.format("%02d", month) + String.format("%02d", day)
+                + String.format("%02d", hour) + String.format("%02d", minutes);
+        return actualDateTime;
+    }
+
+    /**
+     * Convert String date to Calendar
+     *
+     * @param formatDate - String format date
+     * @param stringDate - String date given
+     * @return Calendar with Date given
+     * @throws ParseException
+     */
+    public static Calendar convertStringToCalendar(String formatDate, String stringDate) throws ParseException {
+        SimpleDateFormat simpleDateFromat = new SimpleDateFormat(formatDate);
+        Date date = simpleDateFromat.parse(stringDate);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
     }
 
 }
