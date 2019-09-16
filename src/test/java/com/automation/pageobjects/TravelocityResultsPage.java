@@ -36,7 +36,7 @@ public class TravelocityResultsPage extends BasePage {
     @FindBy(css = "#resultsContainer article")
     public List<WebElement> flexList;
 
-    @FindBy(class = "starRating secondary")
+    @FindBy(className = "starRating secondary")
     public WebElement starRating;
 
     public By modalBy = new By.ByCssSelector("");
