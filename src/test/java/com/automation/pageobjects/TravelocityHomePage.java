@@ -177,7 +177,7 @@ public class TravelocityHomePage extends BasePage {
      *
      * @param dateSelector - String Date selector from the calendar (From or To)
      * @param calendar - Calendar with the given date
-     * @return {@link com.hme.cloud.automation.pages.ReportsPage}
+     * @return
      */
     private TravelocityHomePage selectMonth(String dateSelector, Calendar calendar) {
         int month = calendar.get(Calendar.MONTH);
@@ -194,7 +194,7 @@ public class TravelocityHomePage extends BasePage {
      *
      * @param dateSelector - String Date selector from the calendar (From or To)
      * @param calendar - Calendar with the given date
-     * @return {@link com.hme.cloud.automation.pages.ReportsPage}
+     * @return
      */
     private TravelocityHomePage selectDay(String dateSelector, Calendar calendar) {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
