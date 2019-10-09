@@ -39,6 +39,50 @@ public class TravelocityResultsPage extends BasePage {
     @FindBy(className = "starRating secondary")
     public WebElement starRating;
 
+    @FindBy(id="sortDropdown")
+    public WebElement sortBy;
+
+    @FindBy(className="btn-secondary btn-action t-select-btn")
+    public WebElement selectButton;
+
+    @FindBy(className="duration-emphasis")
+    public WebElement flightDuration;
+
+    @FindBy(className="show-flight-details")
+    public WebElement flightDetail;
+
+    @FindBy(css = "[value='duration:asc']")
+    public WebElement durationShorterButton;
+
+    @FindBy(className= "btn-secondary btn-action t-select-btn")
+    public List<WebElement> selectButtons;
+
+    @FindBy(id="forcedChoiceNoThanks")
+    public WebElement noThanks;
+
+    @FindBy(className = "packagePriceTotal")
+    public WebElement tripTotalPrice;
+
+    @FindBy(className = "flex-card flex-tile details OD0")
+    public WebElement departureInformation;
+
+    @FindBy(className = "flex-card flex-tile details OD1")
+    public WebElement returnInformation;
+
+    @FindBy(className = "btn-primary btn-action bookButton")
+    public WebElement bookingButton;
+
+    @FindBy(css = "[data-opt-group='Price']")
+    public WebElement  buttonSortByPrice;
+
+    @FindBy(css = ".book-button")
+    public List<WebElement> roomOptionList;
+
+    @FindBy(css = ".t-select-btn")
+    public List<WebElement> departuresList;
+
+
+
     public By modalBy = new By.ByCssSelector("");
 
     public TravelocityResultsPage searchByProperty(String hotelName){
@@ -48,6 +92,45 @@ public class TravelocityResultsPage extends BasePage {
 
         return new TravelocityResultsPage(getDriver());
     }
+
+    public boolean ensureTravelocityResultsPage (){
+        return (sortBy.isDisplayed() && selectButtons.get(0).isDisplayed() && flightDuration.isDisplayed() && flightDetail.isDisplayed() && genderMaleButton.isDisplayed());
+    }
+
+    public void sortByDurationShorter(){
+        sortBy.click();
+        durationShorterButton.click();
+    }
+
+    public void selectFirstResult(){
+        botonSelectDeparture.click();
+    }
+
+    public void selectThirdResult(){
+        botonSelectDeparture.click();
+    }
+
+    public void popUpClose(){
+        if(noThanks.isDisplayed()){
+            noThanks.click();
+        }
+    }
+
+    public void sortByPrice(){
+        buttonSortByPrice.click();
+    }
+
+    public void selectFirstRoomOption(){
+        roomOptionList.get(0).click();
+    }
+
+    public void selectFirstDeparture(){
+        departuresList.get(0).click();
+        departuresList.get(1).click();
+    }
+
+
+
     /*public OrbitzResultsPage performSearchWait() {
         getWait().until(ExpectedConditions.elementToBeClickable(hotelNameSearch));
 
