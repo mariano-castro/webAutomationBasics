@@ -94,7 +94,7 @@ public class TravelocityResultsPage extends BasePage {
     }
 
     public boolean ensureTravelocityResultsPage (){
-        return (sortBy.isDisplayed() && selectButtons.get(0).isDisplayed() && flightDuration.isDisplayed() && flightDetail.isDisplayed() && genderMaleButton.isDisplayed());
+        return (sortBy.isDisplayed() && selectButtons.get(0).isDisplayed() && flightDuration.isDisplayed() && flightDetail.isDisplayed());
     }
 
     public void sortByDurationShorter(){
