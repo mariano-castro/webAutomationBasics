@@ -28,7 +28,8 @@ public class TravelocityHomePage extends BasePage {
     private static final String DATE_CSS_SELECTOR = ".datepicker-cal-date";
     private static final String MIDDLE_LINK_CSS_SELECTOR = "%s .rdtSwitch";
     private static final String DAY_CSS_SELECTOR = "%s .rdtDay:not(.rdtNew):not(.rdtOld)[data-value=\"%s\"]";
-
+    private static final String YEAR_CSS_SELECTOR = "%s .rdtYear[data-value=\"%s\"]";
+    private static final String MONTH_CSS_SELECTOR = "%s .rdtMonth";
 
     @FindBy(id = "tab-hotel-tab-hp")
     public WebElement hotelsButton;
