@@ -11,10 +11,9 @@ import org.testng.Assert;
 import javax.swing.text.html.parser.Element;
 import java.util.List;
 
-public class TravelocityResultsPage extends BasePage {
+public abstract class TravelocityResultsPage extends BasePage {
     public TravelocityResultsPage(WebDriver driver){
         super(driver);
-        driver.get("https://www.travelocity.com/");
     }
 
     // selecciona el boton select del primer resultado
@@ -39,18 +38,86 @@ public class TravelocityResultsPage extends BasePage {
     @FindBy(className = "starRating secondary")
     public WebElement starRating;
 
+    @FindBy(id="sortDropdown")
+    public WebElement sortBy;
+
+    @FindBy(className="btn-secondary btn-action t-select-btn")
+    public WebElement selectButton;
+
+    @FindBy(css = "[value='duration:asc']")
+    public WebElement durationShorterButton;
+
+    @FindBy(className= "btn-secondary btn-action t-select-btn")
+    public List<WebElement> selectButtons;
+
+    @FindBy(id="forcedChoiceNoThanks")
+    public WebElement noThanks;
+
+    @FindBy(className = "packagePriceTotal")
+    public WebElement tripTotalPrice;
+
+    @FindBy(className = "flex-card flex-tile details OD0")
+    public WebElement departureInformation;
+
+    @FindBy(className = "flex-card flex-tile details OD1")
+    public WebElement returnInformation;
+
+    @FindBy(className = "btn-primary btn-action bookButton")
+    public WebElement bookingButton;
+
+    @FindBy(css = "[data-opt-group='Price']")
+    public WebElement  buttonSortByPrice;
+
+
+
+
+
+    //HotelsResultsPage
+    @FindBy(className = "uitk-cell all-cell-3-4 all-x-gutter-six")
+    public List <WebElement> hotelsResults;
+
+    @FindBy(className="uitk-badge-text")
+    public WebElement sponsored;
+//.listing-photo-gallery .uitk-badge-text
+
     public By modalBy = new By.ByCssSelector("");
 
-    public TravelocityResultsPage searchByProperty(String hotelName){
+    public void searchByProperty(String hotelName){
         hotelNameSearch.click();
         hotelNameSearch.sendKeys(hotelName);
         hotelNameButton.click();
 
-        return new TravelocityResultsPage(getDriver());
+        //return new TravelocityResultsPage(getDriver());
+        hotelsResults.get(0).findElement(By.cssSelector("uitk-badge-text"));
     }
-    /*public OrbitzResultsPage performSearchWait() {
-        getWait().until(ExpectedConditions.elementToBeClickable(hotelNameSearch));
 
-        return OrbitzResultsPage(getDriver());
-    }*/
+    public boolean ensureTravelocityResultsPage(){
+        return (sortBy.isDisplayed() && selectButtons.get(0).isDisplayed()); // && flightDuration.isDisplayed() && flightDetail.isDisplayed());
+    }
+
+    public void sortByDurationShorter(){
+        sortBy.click();
+        durationShorterButton.click();
+    }
+
+    public void selectFirstResult(){
+        botonSelectDeparture.click();
+    }
+
+    public void selectThirdResult(){
+        botonSelectDeparture.click();
+    }
+
+    public void popUpClose(){
+        if(/*driver.elementEXISTSindom89(By)&& */noThanks.isDisplayed()){
+            noThanks.click();
+        }
+    }
+
+    public void sortByPrice(){
+        buttonSortByPrice.click();
+    }
+
+    //        getWait().until(ExpectedConditions.elementToBeClickable(hotelNameSearch));
+
 }

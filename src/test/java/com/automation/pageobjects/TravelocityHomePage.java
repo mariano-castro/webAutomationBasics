@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class TravelocityHomePage extends BasePage {
 
@@ -31,7 +30,6 @@ public class TravelocityHomePage extends BasePage {
     private static final String DAY_CSS_SELECTOR = "%s .rdtDay:not(.rdtNew):not(.rdtOld)[data-value=\"%s\"]";
 
 
-    //Flights
     @FindBy(id = "tab-hotel-tab-hp")
     public WebElement hotelsButton;
 
@@ -112,21 +110,17 @@ public class TravelocityHomePage extends BasePage {
         flyFrom.sendKeys(goingFromName);
         flyTo.click();
         flyTo.sendKeys(goingToName);
-        flyDepartureDate.click();
-        //flyDepartureDate.sendKeys(checkInDate);
-
+        /*flyDepartureDate.click();
+        flyDepartureDate.sendKeys(checkInDate);
         flyReturnDate.click();
-        //flyReturnDate.sendKeys(checkOutDate);
-
+        flyReturnDate.sendKeys(checkOutDate);*/
         datePicker(checkInDate, DATE_FROM);
         datePicker(checkOutDate, DATE_TO);
         new Select(flyAdults).selectByValue(String.valueOf(adultsNumber));
         searchButton.click();
         try
         {
-            //Thread.sleep(10000);
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-            //wait for element
+            Thread.sleep(10000);
         }
         catch(InterruptedException e) {
             // this part is executed when an exception (in this example InterruptedException) occurs
