@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,8 +33,6 @@ public class TravelocityHomePage extends BasePage {
     private static final String MONTH_CSS_SELECTOR = "%s .rdtMonth";
 
 
-    @FindBy(id = "tab-hotel-tab-hp")
-    public WebElement hotelsButton;
 
     @FindBy(id = "tab-flight-tab-hp")
     public WebElement flightsButton;
@@ -66,6 +65,9 @@ public class TravelocityHomePage extends BasePage {
     @FindBy(id = "fh-fh-hp-package")
     public WebElement flightandhotelButton;
 
+    @FindBy(id = "fhc-fhc-hp-package")
+    public WebElement flightHotelCarButton;
+
     @FindBy(id = "package-origin-hp-package")
     public WebElement packageFlyFrom;
 
@@ -82,6 +84,8 @@ public class TravelocityHomePage extends BasePage {
     public WebElement nextMonthButton;
 
     // Hotels
+    @FindBy(id="tab-hotel-tab-hp")
+    public WebElement hotelsButton;
 
     @FindBy(id = "hotel-destination-hp-hotel")
     public WebElement goingToInputField;
@@ -123,36 +127,48 @@ public class TravelocityHomePage extends BasePage {
     @FindBy(className ="col sailing-details")
     public WebElement cruiseDetails;
 
-    public TravelocityResultsPage performFlySearch(String goingFromName, String goingToName, String checkInDate, String checkOutDate, int adultsNumber) throws ParseException, InterruptedException {
+    public TravelocityFlightResultsPage performFlySearch(String goingFromName, String goingToName, String checkInDate, String checkOutDate, int adultsNumber) throws ParseException, InterruptedException {
 
         flightsButton.click();
         flyFrom.click();
         flyFrom.sendKeys(goingFromName);
         flyTo.click();
         flyTo.sendKeys(goingToName);
+        flyReturnDate.click();
         datePickerFrom(checkInDate, DATE_FROM);
+        flyDepartureDate.click();
         datePickerTo(checkOutDate, DATE_TO);
         new Select(flyAdults).selectByValue(String.valueOf(adultsNumber));
         searchButton.click();
-        //wait.until(ExpectedConditions.visibilityOf((WebElement) By.cssSelector("#resultsContainer article")));
-
-        return new TravelocityResultsPage(getDriver());
+        //wait.until(ExpectedConditions.visibilityOf((WebElement) By.id("sortDropdown")));
+        //driver.manage().timeouts().implicitlyWait();
+        return new TravelocityFlightResultsPage(getDriver());
     }
 
-    public TravelocityResultsPage performFlyHotelSearch(String goingFromName, String goingToName, String checkInDate, String checkOutDate, int adultsNumber) throws ParseException, InterruptedException {
+    public TravelocityHotelsResultsPage performFlyHotelSearch(String goingFromName, String goingToName, String checkInDate, String checkOutDate, int adultsNumber) throws ParseException, InterruptedException {
 
         packagesButton.click();
+        wait.until(ExpectedConditions.visibilityOf(flightHotelCarButton));
+        flightHotelCarButton.click();
+        wait.until(ExpectedConditions.visibilityOf(packageFlyFrom));
         packageFlyFrom.click();
         packageFlyFrom.sendKeys(goingFromName);
         packageFlyTo.click();
         packageFlyTo.sendKeys(goingToName);
+
         datePickerFrom(checkInDate, DATE_FROM);
         datePickerTo(checkOutDate, DATE_TO);
         new Select(flyAdults).selectByValue(String.valueOf(adultsNumber));
         searchButton.click();
-        //wait.until(ExpectedConditions.visibilityOf((WebElement) By.cssSelector("#resultsContainer article")));
+        //wait.until(ExpectedConditions.visibilityOf((WebElement) By.cssSelector("#sortDropdown")));
 
-        return new TravelocityResultsPage(getDriver());
+        return new TravelocityHotelsResultsPage(getDriver());
+    }
+
+    public void performHotelSearch(String goingTo){
+        hotelsButton.click();
+        goingToInputField.sendKeys(goingTo);
+        searchButton.click();
     }
 
     /**
@@ -251,7 +267,7 @@ public class TravelocityHomePage extends BasePage {
         String selectedDay = Integer.toString(day);
         List <WebElement> days= driver.findElements(By.cssSelector("[data-day='"+selectedDay+"']"));
         //WebElement dayElement = driver.findElement(By.cssSelector(String.format(DAY_CSS_SELECTOR, dateSelector, day)));
-        WebElement dayElement = days.get(1);
+        WebElement dayElement = days.get(0);
         dayElement.click();
         Thread.sleep(3000);
         return this;
