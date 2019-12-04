@@ -11,10 +11,9 @@ import org.testng.Assert;
 import javax.swing.text.html.parser.Element;
 import java.util.List;
 
-public class TravelocityResultsPage extends BasePage {
+public abstract class TravelocityResultsPage extends BasePage {
     public TravelocityResultsPage(WebDriver driver){
         super(driver);
-        driver.get("https://www.travelocity.com/");
     }
 
     // selecciona el boton select del primer resultado
@@ -45,12 +44,6 @@ public class TravelocityResultsPage extends BasePage {
     @FindBy(className="btn-secondary btn-action t-select-btn")
     public WebElement selectButton;
 
-    @FindBy(className="duration-emphasis")
-    public WebElement flightDuration;
-
-    @FindBy(className="show-flight-details")
-    public WebElement flightDetail;
-
     @FindBy(css = "[value='duration:asc']")
     public WebElement durationShorterButton;
 
@@ -75,26 +68,31 @@ public class TravelocityResultsPage extends BasePage {
     @FindBy(css = "[data-opt-group='Price']")
     public WebElement  buttonSortByPrice;
 
-    @FindBy(css = ".book-button")
-    public List<WebElement> roomOptionList;
-
-    @FindBy(css = ".t-select-btn")
-    public List<WebElement> departuresList;
 
 
+
+
+    //HotelsResultsPage
+    @FindBy(className = "uitk-cell all-cell-3-4 all-x-gutter-six")
+    public List <WebElement> hotelsResults;
+
+    @FindBy(className="uitk-badge-text")
+    public WebElement sponsored;
+//.listing-photo-gallery .uitk-badge-text
 
     public By modalBy = new By.ByCssSelector("");
 
-    public TravelocityResultsPage searchByProperty(String hotelName){
+    public void searchByProperty(String hotelName){
         hotelNameSearch.click();
         hotelNameSearch.sendKeys(hotelName);
         hotelNameButton.click();
 
-        return new TravelocityResultsPage(getDriver());
+        //return new TravelocityResultsPage(getDriver());
+        hotelsResults.get(0).findElement(By.cssSelector("uitk-badge-text"));
     }
 
-    public boolean ensureTravelocityResultsPage (){
-        return (sortBy.isDisplayed() && selectButtons.get(0).isDisplayed() && flightDuration.isDisplayed() && flightDetail.isDisplayed() && genderMaleButton.isDisplayed());
+    public boolean ensureTravelocityResultsPage(){
+        return (sortBy.isDisplayed() && selectButtons.get(0).isDisplayed()); // && flightDuration.isDisplayed() && flightDetail.isDisplayed());
     }
 
     public void sortByDurationShorter(){
@@ -111,7 +109,7 @@ public class TravelocityResultsPage extends BasePage {
     }
 
     public void popUpClose(){
-        if(noThanks.isDisplayed()){
+        if(/*driver.elementEXISTSindom89(By)&& */noThanks.isDisplayed()){
             noThanks.click();
         }
     }
@@ -120,20 +118,6 @@ public class TravelocityResultsPage extends BasePage {
         buttonSortByPrice.click();
     }
 
-    public void selectFirstRoomOption(){
-        roomOptionList.get(0).click();
-    }
+    //        getWait().until(ExpectedConditions.elementToBeClickable(hotelNameSearch));
 
-    public void selectFirstDeparture(){
-        departuresList.get(0).click();
-        departuresList.get(1).click();
-    }
-
-
-
-    /*public OrbitzResultsPage performSearchWait() {
-        getWait().until(ExpectedConditions.elementToBeClickable(hotelNameSearch));
-
-        return OrbitzResultsPage(getDriver());
-    }*/
 }

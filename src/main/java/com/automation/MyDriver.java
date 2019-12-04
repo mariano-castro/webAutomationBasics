@@ -1,7 +1,9 @@
 package com.automation;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.Wait;
 import org.testng.annotations.AfterSuite;
 
 import org.openqa.selenium.WebDriver;
@@ -30,6 +32,13 @@ public class MyDriver {
             default:
                 break;
         }
+    }
+
+    public boolean elementExistsInDOM(By selector) {
+       // Wait.setZeroImplicitTimeoutOn(this);
+        boolean ret = !driver.findElements(selector).isEmpty();
+        //Wait.setDefaultImplicitTimeoutOn(this);
+        return ret;
     }
 
     public WebDriver getDriver() {
