@@ -1,15 +1,11 @@
 package com.automation.uitests;
-
 import com.automation.pageobjects.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.text.ParseException;
 import java.util.Calendar;
-
 public class TravelocityResultsPageTest extends BaseTest{
-
     String goingFromName = "LAS";
     String goingToName = "LAX";
     String checkInDate = "11/20/2019";
@@ -17,17 +13,12 @@ public class TravelocityResultsPageTest extends BaseTest{
     String goingToHotel = "Montevideo, Uruguay";
     int adultsNumber = 1;
     int childrenNumber = 0;
-
-
     TravelocityHomePage home1;
     TravelocityFlightResultsPage flightResult;
     TravelocityHotelsResultsPage hotelsResult;
     TravelocityHotelRoomsPage hotelRooms;
     TravelocityCarsPage carsPage;
     TravelocityWhosTravelingPage whosTravelingPage;
-
-
-
     @Test(alwaysRun = true)
     public void flightSearch() throws ParseException, InterruptedException {
         home1 = new TravelocityHomePage(myDriver.getDriver());
@@ -38,10 +29,8 @@ public class TravelocityResultsPageTest extends BaseTest{
         flightResult.selectFirstResult();
         flightResult.selectThirdResult();
         flightResult.popUpClose();
-
         //result1 = home1.performFlyHotelSearch(goingFromName, goingToName,checkInDate, checkOutDate, adultsNumber);
     }
-
     @Test
     public void flightAndHotelSearch() throws ParseException, InterruptedException {
         home1 = new TravelocityHomePage(myDriver.getDriver());
@@ -55,11 +44,9 @@ public class TravelocityResultsPageTest extends BaseTest{
         whosTravelingPage = carsPage.selectFirstCar();
     }
 /*
-
     @Test
     public void HotelSearch(){
         home1 = new TravelocityHomePage(myDriver.getDriver());
         result1 = home1.performHotelSearch(goingToHotel);
     }*/
-
 }

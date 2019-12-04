@@ -1,5 +1,4 @@
 package com.automation.pageobjects;
-
 import com.automation.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,20 +7,16 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 public class TravelocityHomePage extends BasePage {
-
     public TravelocityHomePage(WebDriver driver){
         super(driver);
         driver.get("https://www.travelocity.com/");
     }
-
     private static final String DD_MM_YYYY = "MM/dd/yyyy";
     private static final String STORE_NAME_XPATH = "//li[@class='%s rc-tree-treenode-switcher-close']//span[@class='rc-tree-checkbox']";
     private static final String DATE_FROM = "flight-departing-hp-flight";
@@ -31,104 +26,70 @@ public class TravelocityHomePage extends BasePage {
     private static final String DAY_CSS_SELECTOR = "%s .rdtDay:not(.rdtNew):not(.rdtOld)[data-value=\"%s\"]";
     private static final String YEAR_CSS_SELECTOR = "%s .rdtYear[data-value=\"%s\"]";
     private static final String MONTH_CSS_SELECTOR = "%s .rdtMonth";
-
-
-
     @FindBy(id = "tab-flight-tab-hp")
     public WebElement flightsButton;
-
     @FindBy(id = "flight-origin-hp-flight")
     public WebElement flyFrom;
-
     @FindBy(id = "flight-destination-hp-flight")
     public WebElement flyTo;
-
     @FindBy(id = "flight-departing-hp-flight")
     public WebElement flyDepartureDate;
-
     @FindBy(id = "flight-returning-hp-flight")
     public WebElement flyReturnDate;
-
     @FindBy(id = "flight-adults-hp-flight")
     public WebElement flyAdults;
-
     @FindBy(id = "flight-children-hp-flight")
     public WebElement flyChildren;
-
     @FindBy(css = "datepicker-cal-date")
     public WebElement dayButton;
-
     //Flight+Hotel
     @FindBy(id = "tab-package-tab-hp")
     public WebElement packagesButton;
-
     @FindBy(id = "fh-fh-hp-package")
     public WebElement flightandhotelButton;
-
     @FindBy(id = "fhc-fhc-hp-package")
     public WebElement flightHotelCarButton;
-
     @FindBy(id = "package-origin-hp-package")
     public WebElement packageFlyFrom;
-
     @FindBy(id = "package-destination-hp-package")
     public WebElement packageFlyTo;
-
     @FindBy(id = "package-departing-hp-package")
     public WebElement packageFlyDepartureDate;
-
     @FindBy(id = "package-returning-hp-package")
     public WebElement packageFlyReturnDate;
-
     @FindBy(css = "btn-secondary next")
     public WebElement nextMonthButton;
-
     // Hotels
     @FindBy(id="tab-hotel-tab-hp")
     public WebElement hotelsButton;
-
     @FindBy(id = "hotel-destination-hp-hotel")
     public WebElement goingToInputField;
-
     @FindBy(id = "hotel-checkin-hp-hotel")
     public WebElement checkInField;
-
     @FindBy(id = "hotel-checkout-hp-hotel")
     public WebElement checkOutField;
-
     @FindBy(id = "hotel-1-adults-hp-hotel")
     public WebElement adultsField;
-
     @FindBy(id = "hotel-1-children-hp-hotel")
     public WebElement childrenField;
-
     @FindBy(id = "hotel-1-age-select-1-hp-hotel")
     public WebElement ageFirstChildField;
-
     @FindBy(css = ".on .btn-primary.btn-action.gcw-submit")
     public WebElement searchButton;
-
     //Cruises
     @FindBy(id="tab-cruise-tab-hp")
     public WebElement cruisesButton;
-
     @FindBy(id="cruise-destination-hp-cruise")
     public WebElement selectCruiseDestination;
-
     @FindBy(css = "[value='europe']")
     public WebElement europeDestination;
-
     @FindBy(id="length-10-14-ember1330")
     public WebElement tenTo14NightsRadioButton;
-
     @FindBy(className ="strikeout-price-card")
     public WebElement discount;
-
     @FindBy(className ="col sailing-details")
     public WebElement cruiseDetails;
-
     public TravelocityFlightResultsPage performFlySearch(String goingFromName, String goingToName, String checkInDate, String checkOutDate, int adultsNumber) throws ParseException, InterruptedException {
-
         flightsButton.click();
         flyFrom.click();
         flyFrom.sendKeys(goingFromName);
@@ -144,9 +105,7 @@ public class TravelocityHomePage extends BasePage {
         //driver.manage().timeouts().implicitlyWait();
         return new TravelocityFlightResultsPage(getDriver());
     }
-
     public TravelocityHotelsResultsPage performFlyHotelSearch(String goingFromName, String goingToName, String checkInDate, String checkOutDate, int adultsNumber) throws ParseException, InterruptedException {
-
         packagesButton.click();
         wait.until(ExpectedConditions.visibilityOf(flightHotelCarButton));
         flightHotelCarButton.click();
@@ -155,22 +114,18 @@ public class TravelocityHomePage extends BasePage {
         packageFlyFrom.sendKeys(goingFromName);
         packageFlyTo.click();
         packageFlyTo.sendKeys(goingToName);
-
         datePickerFrom(checkInDate, DATE_FROM);
         datePickerTo(checkOutDate, DATE_TO);
         new Select(flyAdults).selectByValue(String.valueOf(adultsNumber));
         searchButton.click();
         //wait.until(ExpectedConditions.visibilityOf((WebElement) By.cssSelector("#sortDropdown")));
-
         return new TravelocityHotelsResultsPage(getDriver());
     }
-
     public void performHotelSearch(String goingTo){
         hotelsButton.click();
         goingToInputField.sendKeys(goingTo);
         searchButton.click();
     }
-
     /**
      * Given a date select it from the calendar
      *
@@ -181,7 +136,6 @@ public class TravelocityHomePage extends BasePage {
      */
     public TravelocityHomePage datePickerFrom(String date, String dateSelector) throws ParseException, InterruptedException {
         Calendar calendar = convertStringToCalendar(DD_MM_YYYY, date);
-
         //WebElement selectDate = driver.findElement(By.cssSelector(String.format(DATE_CSS_SELECTOR, dateSelector)));
         WebElement selectDate = driver.findElement(By.id(dateSelector));
         selectDate.click();
@@ -189,10 +143,8 @@ public class TravelocityHomePage extends BasePage {
         //selectYear(dateSelector, calendar);
         //selectMonth(dateSelector, calendar);
         selectDay(dateSelector, calendar);
-
         return this;
     }
-
     /**
      * Given a date select it from the calendar
      *
@@ -203,21 +155,17 @@ public class TravelocityHomePage extends BasePage {
      */
     public TravelocityHomePage datePickerTo(String date, String dateSelector) throws ParseException, InterruptedException {
         Calendar calendar = convertStringToCalendar(DD_MM_YYYY, date);
-
         //WebElement selectDate = driver.findElement(By.cssSelector(String.format(DATE_CSS_SELECTOR, dateSelector)));
         WebElement selectDate = driver.findElement(By.id(dateSelector));
         selectDate.click();
         //WebElement middleLink = driver.findElement(By.cssSelector(String.format(MIDDLE_LINK_CSS_SELECTOR, dateSelector)));
         WebElement nextMonth = driver.findElement(By.cssSelector(".btn-secondary.next"));
         nextMonth.click();
-
         //selectYear(dateSelector, calendar);
         //selectMonth(dateSelector, calendar);
         selectDay(dateSelector, calendar);
-
         return this;
     }
-
     /**
      * Select and click a year from the calendar
      *
@@ -231,13 +179,11 @@ public class TravelocityHomePage extends BasePage {
         if (yearDiff != 0) {
             WebElement middleLink = driver.findElement(By.cssSelector(String.format(MIDDLE_LINK_CSS_SELECTOR, dateSelector)));
             middleLink.click();
-
             WebElement yearSelector = driver.findElement(By.cssSelector(String.format(YEAR_CSS_SELECTOR, dateSelector, year)));
             yearSelector.click();
         }
         return this;
     }
-
     /**
      * Select and click a month from the calendar
      *
@@ -254,7 +200,6 @@ public class TravelocityHomePage extends BasePage {
                 .visibilityOfElementLocated(By.cssSelector(String.format(MIDDLE_LINK_CSS_SELECTOR, dateSelector))));
         return this;
     }
-
     /**
      * Select and click a day from the calendar
      *
@@ -272,7 +217,6 @@ public class TravelocityHomePage extends BasePage {
         Thread.sleep(3000);
         return this;
     }
-
     /**
      * Utility to get the actual date time
      *
@@ -291,7 +235,6 @@ public class TravelocityHomePage extends BasePage {
                 + String.format("%02d", hour) + String.format("%02d", minutes);
         return actualDateTime;
     }
-
     /**
      * Convert String date to Calendar
      *
@@ -307,10 +250,8 @@ public class TravelocityHomePage extends BasePage {
         calendar.setTime(date);
         return calendar;
     }
-
     public Calendar addDays(Calendar date, int days) throws ParseException {
         date.add(Calendar.DATE, days);
         return date;
     }
-
 }
